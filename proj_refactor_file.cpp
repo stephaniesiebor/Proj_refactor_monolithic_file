@@ -32,19 +32,19 @@ struct process{	int process_number=UNINITIALIZED;
 
 //attempt to open file 'filename' and read in all data
 //returns SUCCESS if all goes well or COULD_NOT_OPEN_FILE
-int loadData(const std::string filename, vector<process> &myProcesses){
+int load(const std::string filename, vector<process> &myProcesses){
 	return UNIMPLEMENTED;
 }
 
 //attempt to create or open file 'filename' to write all data to
 //returns SUCCESS if all goes well or COULD_NOT_OPEN_FILE
-int saveData(const std::string filename, vector<process> &myProcesses){
+int save(const std::string filename, vector<process> &myProcesses){
 	return UNIMPLEMENTED;
 }
 
 //sorts vector inplace based on mySortOrder (inplace means the vector is modified)
 //returns nothing
-void sortData(const SORT_ORDER &mySortOrder,vector<process> &myProcesses){
+void sort(const SORT_ORDER &mySortOrder,vector<process> &myProcesses){
 
 }
 
@@ -74,16 +74,17 @@ int main() {
 	int iRet = FAIL;
 
 	//get raw data
-	iRet = loadData(SOURCE_FILE, myProcesses);
+	iRet = load(SOURCE_FILE, myProcesses);
 	if (iRet != SUCCESS)
 		return iRet;
 
-	iRet = handleMissingData(myProcesses);
-	if (iRet != SUCCESS)
-		return iRet;
+	int orig_size = getSize(myProcesses);
+	int new_size = handleMissingData(myProcesses);
+	if (orig_size != new_size)
+		cout<<"Dropped "<<(orig_size-new_size)<<" rows with missing data"<<endl;
 
 	//sort the data
-	sortData(SORT_ORDER::START_TIME,myProcesses);
+	sort(SORT_ORDER::START_TIME,myProcesses);
 
 	//how many entries in vector
 	iRet = getSize(myProcesses);
@@ -95,6 +96,6 @@ int main() {
 		return
 
 	//save processed data
-	iRet = saveData(RESULTS_FILE, myProcesses);
+	iRet = save(RESULTS_FILE, myProcesses);
 	return iRet;
 }
