@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
 
 //default files to read and write data
 const std::string SOURCE_FILE 	= "source_file.txt";
@@ -32,43 +31,43 @@ struct process{	int process_number=UNINITIALIZED;
 
 //attempt to open file 'filename' and read in all data
 //returns SUCCESS if all goes well or COULD_NOT_OPEN_FILE
-int load(const std::string filename, vector<process> &myProcesses){
+int load(const std::string filename, std::vector<process> &myProcesses){
 	return UNIMPLEMENTED;
 }
 
 //attempt to create or open file 'filename' to write all data to
 //returns SUCCESS if all goes well or COULD_NOT_OPEN_FILE
-int save(const std::string filename, vector<process> &myProcesses){
+int save(const std::string filename, std::vector<process> &myProcesses){
 	return UNIMPLEMENTED;
 }
 
 //sorts vector inplace based on mySortOrder (inplace means the vector is modified)
 //returns nothing
-void sort(const SORT_ORDER &mySortOrder,vector<process> &myProcesses){
+void sort(const SORT_ORDER &mySortOrder,std::vector<process> &myProcesses){
 
 }
 
 //gets the next process from the vector, then removes it from the vector
 //returns removed process
-process getNext(vector<process> &myProcesses){
+process getNext(std::vector<process> &myProcesses){
 	process p;
 	return p;
 }
 
 //returns the number of entries in the vector
-int getSize(vector<process> &myProcesses){
+int getSize(std::vector<process> &myProcesses){
 	return UNIMPLEMENTED;
 }
 
 //attempt to correct missing data
 //if cannot correct, then drop row
 //return number of rows in myProcesses
-int handleMissingData(vector<process> &myProcesses){
+int handleMissingData(std::vector<process> &myProcesses){
 	return NO_DATA_TO_WORK_ON;
 }
 
 int main() {
-	vector<process> myProcesses;
+	std::vector<process> myProcesses;
 
 	//assumme failure
 	int iRet = FAIL;
@@ -81,7 +80,7 @@ int main() {
 	int orig_size = getSize(myProcesses);
 	int new_size = handleMissingData(myProcesses);
 	if (orig_size != new_size)
-		cout<<"Dropped "<<(orig_size-new_size)<<" rows with missing data"<<endl;
+		std::cout<<"Dropped "<<(orig_size-new_size)<<" rows with missing data"<<std::endl;
 
 	//sort the data
 	sort(SORT_ORDER::START_TIME,myProcesses);
